@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+<div class="container">
+  {% block header %}
+  <br>
+  <h1 align='center'>{% block title %}Instrumentos{% endblock %}</h1>
+  {% endblock %}
+
+  {% block content %}
+
+  <br>
+  <div class="container">
+    <div class="row">
+      {% for instrumento in instrumentos %}
+      <div class="col-4">
+        <form method="post" action="/main/add">
+          <div class="card" style="width: 18rem; background-color: #eee;">
+            <div class="card-body">
+              <h5 class="card-title">{{ instrumento.nombre }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ instrumento.marca }}</h6>
+              <p class="card-text">Tipo: {{ instrumento.tipo_instrumento }}<br> Precio: ${{ instrumento.valor }}<br></p>
+              <div class="add-to-cart">
+                <input type="hidden" name="id_instrumento" value="{{ instrumento.id_instrumento }}" />
+                <input type="text" class="cantidad-producto" name="cantidad" value="1" size="2" />
+                <input type="submit" value="Añadir al carro" class="default-btn" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% if loop.index % 3 == 0 %}
+    </div>
+    <br>
+    <div class="row">
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  <br>
+  {% endblock %}
+</div>
