@@ -57,9 +57,9 @@ def add_product_to_cart():
     
         for key, value in session['cart_item'].items():
             individual_cantidad = int(session['cart_item'][key]['cantidad'])
-            individual_price = float(session['cart_item'][key]['total_price'])
+            item_price = float(session['cart_item'][key]['total_price'])
             total_cantidad = total_cantidad + individual_cantidad
-            valor_total = valor_total + individual_price
+            valor_total = valor_total + item_price
     else:
         session['cart_item'] = itemArray
         total_cantidad = total_cantidad + _cantidad
