@@ -30,7 +30,7 @@
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th class="text-center">Precio unitario</th>
-                        <th class="text-center">Precio</th>
+                        <th class="text-center">Precio Total</th>
                         <th> </th>
                     </tr>
                 </thead>
@@ -40,19 +40,21 @@
                     {% set valor = session['cart_item'][key]['valor'] %}
                     {% set item_price = session['cart_item'][key]['total_price'] %}
                     <tr>
+                        <!--Nombre del item + otras cosas-->
                         <td class="col-sm-8 col-md-6">
                             <div class="media">
                                 <div class="media-body">
                                     <h4 class="media-heading"> <a>{{ session['cart_item'][key]['nombre'] }}</a>
                                     </h4>
-                                    <h5 class="media-heading"> <a>{{ session['cart_item'][key]['marca'] }}</a>
+                                    <h5 class="media-heading"> <a></a>
                                     </h5>
                                     <span>Status: </span><span class="text-success"><strong>En Stock</strong></span>
                                 </div>
                             </div>
                         </td>
+                        <!--Cantidad del producto + otras cosas-->
                         <td class="col-sm-1 col-md-1" style="text-align: center">
-                            <input type="email" class="form-control" value="{{ cantidad }}">
+                            <input type="number" class="form-control" value="{{ cantidad }}">
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>${{ valor }} </strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong>${{ item_price }} </strong></td>
