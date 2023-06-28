@@ -1,6 +1,10 @@
+import random
 import os
+from transbank.webpay.webpay_plus.transaction import Transaction
 from flask import Flask, Blueprint, redirect, url_for, session, render_template, request
 from web.db import get_db
+from webpay_plus import routes
+
 
 bp = Blueprint('main', __name__, url_prefix='/main')
 
@@ -13,8 +17,8 @@ bp = Blueprint('main', __name__, url_prefix='/main')
 def instrumentos():
     db, c = get_db()
     c.execute(
-        'select id_instrumento, nombre, marca, tipo_instrumento,'
-        'valor, cantidad from instrumento;'
+        'SELECT id_instrumento, nombre, marca, tipo_instrumento,'
+        'valor, cantidad FROM instrumento;'
     )
     instrumentos = c.fetchall()
     return render_template('public/instrumentos.html', instrumentos=instrumentos)
@@ -59,11 +63,11 @@ def add_product_to_cart():
             else:
                 session['cart_item'] = {row['id_instrumento']: item}
 
-            total_cantidad = sum(item['cantidad'] for item in session['cart_item'].values())
-            valor_total = sum(item['total_price'] for item in session['cart_item'].values())
+            total_cantidad = int(sum(item['cantidad'] for item in session['cart_item'].values()))
+            valor_total = int(sum(item['total_price'] for item in session['cart_item'].values()))
 
-            session['total_cantidad'] = int(total_cantidad)
-            session['valor_total'] = int(valor_total)
+            session['total_cantidad'] = total_cantidad
+            session['valor_total'] = valor_total
 
             return redirect(url_for('main.carrito'))
         else:
